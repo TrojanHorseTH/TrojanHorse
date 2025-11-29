@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Purchase – Trojan Horse</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 700px;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #FF6F00;
+    }
+
+    p {
+      color: #ccc;
+      line-height: 1.5;
+    }
+
+    .product-box {
+      background-color: #1f1f1f;
+      padding: 25px;
+      border-radius: 10px;
+      margin-top: 25px;
+      border: 1px solid #333;
+    }
+
+    .price {
+      font-size: 2rem;
+      margin: 10px 0;
+      color: #FF6F00;
+    }
+
+    .purchase-btn {
+      background-color: #FF6F00;
+      color: white;
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-size: 1.2em;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 20px;
+    }
+
+    .purchase-btn:hover {
+      background-color: #e65c00;
+      transform: scale(1.05);
+    }
+
+    .disabled {
+      background-color: #555 !important;
+      cursor: not-allowed !important;
+      transform: none !important;
+    }
+
+    .back-btn {
+      color: #FF6F00;
+      display: inline-block;
+      margin-top: 25px;
+    }
+
+    .redownload-btn {
+      background-color: #555;
+      color: white;
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-size: 1.2em;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .redownload-btn:hover {
+      background-color: #888;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Purchase License</h1>
+    <p>A license is required to use Trojan Horse. You must be logged in to purchase.</p>
+
+    <div class="product-box">
+
+      <h2>Trojan Horse – Free License</h2>
+      <p>✔ Some access<br>
+         ✔ Updates included<br>
+         ✔ Discord support<br>
+         ✔ One device activation</p>
+
+      <div class="price">Free</div>
+
+      <!-- Purchase button will be shown if the user hasn't already purchased -->
+      <button id="purchaseBtn" class="purchase-btn" onclick="completePurchase()">Purchase Now</button>
+
+      <!-- Redownload button will be shown if the user has already purchased and downloaded the key -->
+      <button id="redownloadBtn" class="redownload-btn" onclick="redownloadKey()" style="display:none;">Redownload Key</button>
+
+    </div>
+
+    <a href="index.html" class="back-btn">← Back to Home</a>
+
+  </div>
+
+  <script>
+
+    // Generate random key
+    function generateKey() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let key = "";
+      for (let i = 0; i < 25; i++) {
+        key += chars.charAt(Math.floor(Math.random() * chars.length));
+        if ((i + 1) % 5 === 0 && i !== 24) key += "-";
+      }
+      return key;
+    }
+
+    function downloadKeyFile(email, key) {
+      const content = `Your Trojan Horse License\n\nEmail: ${email}\nLicense Key: ${key}\n\nKeep this key safe.`;
+
+      const blob = new Blob([content], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "TrojanHorseLicense.txt";
+      link.click();
+
+      URL.revokeObjectURL(url);
+    }
+
+    function completePurchase() {
+
+      const user = localStorage.getItem("loggedInUser");
+
+      // Must be logged in
+      if (!user) {
+        alert("You must be logged in to purchase.");
+        window.location.href = "TrojanHorseLogIn-SignUp.html";
+        return;
+      }
+
+      // Prevent purchasing twice
+      if (localStorage.getItem("hasPurchased") === "true") {
+        alert("You already purchased this license. Check your downloaded .txt file.");
+        showRedownloadButton();
+        return;
+      }
+
+      // Generate & save key
+      const key = generateKey();
+      localStorage.setItem("licenseKey", key);
+      localStorage.setItem("licenseOwner", user);
+      localStorage.setItem("hasPurchased", "true");
+
+      // Download .txt file
+      downloadKeyFile(user, key);
+
+      // Show redownload option
+      showRedownloadButton();
+
+      // Change button
+      const btn = document.getElementById("purchaseBtn");
+      btn.textContent = "Purchased!";
+      btn.classList.add("disabled");
+
+      // Redirect to success page
+      setTimeout(() => {
+        window.location.href = "TrojanHorsePurchaseSucsess.html";
+      }, 2000);
+    }
+
+    function redownloadKey() {
+      const user = localStorage.getItem("loggedInUser");
+      const key = localStorage.getItem("licenseKey");
+
+      if (!user || !key) {
+        alert("No key found for redownload.");
+        return;
+      }
+
+      downloadKeyFile(user, key);
+    }
+
+    // Show the redownload button if the key exists
+    function showRedownloadButton() {
+      document.getElementById("purchaseBtn").style.display = "none";
+      document.getElementById("redownloadBtn").style.display = "inline-block";
+    }
+
+    // Check if the user has already purchased, and if so, show the redownload button
+    window.onload = function() {
+      const hasPurchased = localStorage.getItem("hasPurchased");
+      if (hasPurchased === "true") {
+        showRedownloadButton();
+      }
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Purchase Successful</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 700px;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #4CAF50;
+    }
+
+    p {
+      color: #ccc;
+    }
+
+    .key-box {
+      background-color: #1f1f1f;
+      padding: 25px;
+      margin-top: 35px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      font-size: 1.5em;
+      color: #FF6F00;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Purchase Successful!</h1>
+
+    <p id="ownerText"></p>
+
+    <div class="key-box" id="keyBox">Loading...</div>
+
+    <a class="btn" style="color:#FF6F00; margin-top:25px;" href="index.html">← Return Home</a>
+
+  </div>
+
+  <script>
+  function generateKey() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let key = "";
+    for (let i = 0; i < 25; i++) {
+      key += chars.charAt(Math.floor(Math.random() * chars.length));
+      if ((i + 1) % 5 === 0 && i !== 24) key += "-";
+    }
+    return key;
+  }
+
+  function completePurchase() {
+    const user = localStorage.getItem("loggedInUser");
+
+    if (!user) {
+      alert("You must be logged in to purchase.");
+      window.location.href = "TrojanHorseLogIn-SignUp.html";
+      return;
+    }
+
+    const key = generateKey();
+
+    // Save main license info
+    localStorage.setItem("licenseKey", key);
+    localStorage.setItem("licenseOwner", user);
+
+    // Load valid licenses database
+    let db = JSON.parse(localStorage.getItem("validLicenses")) || {};
+
+    // Add new key
+    db[user] = key;
+
+    // Save updated database
+    localStorage.setItem("validLicenses", JSON.stringify(db));
+
+    // Download key as txt
+    const text = `Email: ${user}\nLicense Key: ${key}`;
+    const blob = new Blob([text], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "TrojanHorse-LicenseKey.txt";
+    link.click();
+
+    window.location.href = "TrojanHorsePurchaseSucsess.html";
+  }
+</script>
+
+
+</body>
+</html>

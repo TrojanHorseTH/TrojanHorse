@@ -5,36 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Trojan Horse</title>
   <style>
-    /* Body Setup: Flexbox to center content */
     body {
       font-family: Arial, sans-serif;
       background-color: #121212;
       color: white;
       margin: 0;
       padding: 0;
-      height: 100vh; /* Ensure the body takes full height of the viewport */
+      height: 100vh;
       display: flex;
-      justify-content: center; /* Center horizontally */
-      align-items: center; /* Center vertically */
-      text-align: center; /* Center text inside container */
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
 
-    /* Main container that holds all content */
     .container {
-      text-align: center;
       max-width: 800px;
       padding: 20px;
       width: 100%;
     }
 
-    /* Logo Styling */
     .logo img {
       width: 200px;
       height: auto;
       margin-bottom: 20px;
     }
 
-    /* General Paragraph Styling */
     p {
       max-width: 600px;
       margin: 20px auto;
@@ -42,25 +37,22 @@
       color: #aaa;
     }
 
-    /* Smaller text for the license */
     .smaller-text {
-      font-size: 0.8em; /* Makes the font smaller */
+      font-size: 0.8em;
       color: #bbb;
     }
 
-    /* Buttons Section */
     .buttons {
       margin: 10px 0;
       display: flex;
-      justify-content: center; /* Center buttons horizontally */
+      justify-content: center;
       align-items: center;
       width: 100%;
-      gap: 10px; /* Adds some space between buttons */
+      gap: 10px;
     }
 
-    /* Rectangular Buttons (Download and Purchase) */
     .download, .purchase {
-      background-color: #FF6F00; /* Orange background */
+      background-color: #FF6F00;
       color: white;
       text-decoration: none;
       padding: 12px 24px;
@@ -72,8 +64,8 @@
     }
 
     .download:hover, .purchase:hover {
-      background-color: #e65c00; /* Darker shade on hover */
-      transform: scale(1.05); /* Slightly enlarge button on hover */
+      background-color: #e65c00;
+      transform: scale(1.05);
     }
 
     .download img, .purchase img {
@@ -82,40 +74,34 @@
       height: 20px;
     }
 
-    /* Square Buttons (Discord, Support, FAQ) */
     .buttons a.square {
-      width: 50px; /* Set width for square buttons (smaller size) */
-      height: 50px; /* Set equal height for symmetry */
+      width: 50px;
+      height: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 12px; /* Smoothed corners */
-      background-color: transparent; /* No background color */
-      border: 2px solid #555; /* Grey border for the outline */
+      border-radius: 12px;
+      background-color: transparent;
+      border: 2px solid #555;
       transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .buttons a.square:hover {
-      background-color: #333; /* Light grey background on hover */
-      transform: scale(1.05); /* Slightly enlarge button on hover */
+      background-color: #333;
+      transform: scale(1.05);
     }
 
     .buttons a.square img {
-      width: 28px; /* Adjust image size to make it fit better in the button */
+      width: 28px;
       height: 28px;
-      object-fit: contain; /* Keeps the aspect ratio of the icon and fills the square */
+      object-fit: contain;
     }
 
-    /* Footer Styling */
     .footer {
       font-size: 0.8em;
-      margin-top: 10px; /* Reduced margin-top to bring footer closer */
-      padding: 0; /* Removed padding to reduce space */
+      margin-top: 10px;
+      padding: 0;
       color: gray;
-    }
-
-    .footer p {
-      margin-top: 5px; /* Adjusted margin between the footer paragraphs */
     }
 
     .footer a {
@@ -127,57 +113,79 @@
       text-decoration: underline;
     }
 
+    /* Account name styling in top right corner */
+    .account-name {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 1.1em;
+      color: #FF6F00;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- Logo section -->
-    <div class="logo">
-      <a href="index.html">
-        <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
-      </a>
+    
+    <!-- Header: Logo and Account Name in the top-right -->
+    <div class="header">
+      <div class="logo">
+        <a href="index.html">
+          <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
+        </a>
+      </div>
+      <!-- Account Name Display -->
+      <div id="accountName" class="account-name"></div>
     </div>
 
-    <!-- License statement text -->
     <p class="smaller-text">A license is required to use this software. Anyone telling you otherwise is trying to scam you.</p>
 
-    <!-- Button section -->
     <div class="buttons">
-      <!-- Rectangular Download Button that works -->
-      <a href="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/BeingWorkedOnSorry.zip" class="download" download>
+
+      <a href="TrojanHorseDownload.html" class="download" download>
         <img src="https://cdn4.iconfinder.com/data/icons/arrows-245/24/download_1-1024.png" alt="Download icon">
         Download
       </a>
 
-      <!-- About Button -->
       <a href="TrojanHorseAbout.html" class="square support">
         <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/About.png?raw=true" alt="About icon">
       </a>
 
-      <!-- Square Discord Button -->
       <a href="https://discord.gg/QYq6mknYXX" class="square discord" target="_blank">
         <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/Discord-Symbol-White.png?raw=true" alt="Discord icon">
       </a>
 
-      <!-- Login/SignUp Button -->
       <a href="TrojanHorseLogIn-SignUp.html" class="square faq">
         <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/CheckMarkPerson-removebg-preview.png?raw=true" alt="Login icon">
       </a>
 
-      <!-- Rectangular Purchase Button -->
-      <a href="#" class="purchase">
+      <a href="TrojanHorsePurchase.html" class="purchase">
         <img src="https://cdn1.iconfinder.com/data/icons/shopping-and-e-commerce-147/90/Cart-1-1024.png" alt="Cart icon">
         Purchase
       </a>
+
     </div>
 
-    <!-- Footer text -->
     <div class="footer">
       <p>By downloading, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
       <p><strong>TrojanHorse.git</strong> is the only official domain for this software.</p>
     </div>
+
   </div>
+
+  <script>
+    // Check if the user is logged in and display their username in the top right
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (loggedInUser) {
+      document.getElementById("accountName").textContent = loggedInUser;
+    } else {
+      document.getElementById("accountName").textContent = "Guest";
+    }
+  </script>
 
 </body>
 </html>

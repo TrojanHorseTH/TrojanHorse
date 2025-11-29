@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About - Trojan Horse</title>
+
   <style>
     /* Body Setup: Flexbox to center content */
     body {
@@ -12,9 +13,9 @@
       color: white;
       margin: 0;
       padding: 0;
-      height: 100vh; /* Ensure the body takes full height of the viewport */
+      height: 100vh;
       display: flex;
-      flex-direction: column; /* Allow space for header */
+      flex-direction: column;
     }
 
     /* Main container for the content */
@@ -92,11 +93,20 @@
       text-decoration: underline;
     }
 
+    /* Account Info in the top right */
+    .account-info {
+      color: #FF6F00;
+      font-size: 1.1em;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
+
   </style>
 </head>
 <body>
 
-  <!-- Header: Back button and Logo -->
+  <!-- Header: Back button, Logo, and Account Info -->
   <div class="header">
     <button class="back-button" onclick="window.history.back();">Back</button>
     <div class="logo">
@@ -104,6 +114,7 @@
         <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
       </a>
     </div>
+    <div class="account-info" id="accountInfo">Loading...</div>
   </div>
 
   <!-- Main content section -->
@@ -111,7 +122,7 @@
     <div class="about-content">
       <h2>About Trojan Horse</h2>
       <p>
-        Trojan Horse is a powerful tool that provides a set of features. This software ensures seamless performance and quick intigration, designed to cater to users needs while being user-friendly and efficient.
+        Trojan Horse is a powerful tool that provides a set of features. This software ensures seamless performance and quick integration, designed to cater to users' needs while being user-friendly and efficient.
       </p>
       <p>
         By using Trojan Horse, you agree to follow all guidelines and instructions outlined in the documentation. Always ensure that you have the latest version of the software for optimal functionality.
@@ -127,6 +138,21 @@
     <p>By using Trojan Horse, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
     <p><strong>TrojanHorse.git</strong> is the only official domain for this software.</p>
   </div>
+
+  <script>
+    function updateAccountInfo() {
+      const user = localStorage.getItem("loggedInUser");
+      const accountInfoElement = document.getElementById("accountInfo");
+
+      if (user) {
+        accountInfoElement.textContent = `Logged in as: ${user}`;
+      } else {
+        accountInfoElement.textContent = "Not logged in";
+      }
+    }
+
+    window.onload = updateAccountInfo;
+  </script>
 
 </body>
 </html>
