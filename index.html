@@ -113,7 +113,6 @@
       text-decoration: underline;
     }
 
-    /* Account name styling in top right corner */
     .account-name {
       position: absolute;
       top: 10px;
@@ -129,15 +128,14 @@
 <body>
 
   <div class="container">
-    
-    <!-- Header: Logo and Account Name in the top-right -->
+
     <div class="header">
       <div class="logo">
         <a href="index.html">
           <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
         </a>
       </div>
-      <!-- Account Name Display -->
+
       <div id="accountName" class="account-name"></div>
     </div>
 
@@ -145,6 +143,7 @@
 
     <div class="buttons">
 
+      <!-- Goes to download page, NOT directly downloading -->
       <a href="TrojanHorseDownload.html" class="download">
         <img src="https://cdn4.iconfinder.com/data/icons/arrows-245/24/download_1-1024.png" alt="Download icon">
         Download
@@ -177,7 +176,6 @@
   </div>
 
   <script>
-    // Check if the user is logged in and display their username in the top right
     const loggedInUser = localStorage.getItem("loggedInUser");
 
     if (loggedInUser) {
@@ -189,4 +187,3 @@
 
 </body>
 </html>
-
