@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - Trojan Horse</title>
+  <style>
+    /* Body Setup: Flexbox to center content */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+      margin: 0;
+      padding: 0;
+      height: 100vh; /* Ensure the body takes full height of the viewport */
+      display: flex;
+      flex-direction: column; /* Allow space for header */
+    }
+
+    /* Main container for the content */
+    .container {
+      text-align: center;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    /* Header section (for back button and logo) */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    /* Back Button Styling */
+    .back-button {
+      font-size: 1.2em;
+      background-color: transparent;
+      color: #FF6F00;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    /* Logo Styling in the top right */
+    .logo img {
+      width: 100px;
+      height: auto;
+    }
+
+    /* About Page Content */
+    .about-content {
+      color: #aaa;
+      max-width: 700px;
+      margin: 50px auto;
+      font-size: 1.1em;
+    }
+
+    .about-content h2 {
+      font-size: 2em;
+      color: #FF6F00;
+    }
+
+    .about-content p {
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+
+    /* Footer Styling */
+    .footer {
+      font-size: 0.8em;
+      margin-top: 30px;
+      padding: 0;
+      color: gray;
+      text-align: center;
+    }
+
+    .footer p {
+      margin-top: 5px;
+    }
+
+    .footer a {
+      color: #FF6F00;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header: Back button and Logo -->
+  <div class="header">
+    <button class="back-button" onclick="window.history.back();">Back</button>
+    <div class="logo">
+      <a href="index.html">
+        <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
+      </a>
+    </div>
+  </div>
+
+  <!-- Main content section -->
+  <div class="container">
+    <div class="about-content">
+      <h2>About Trojan Horse</h2>
+      <p>
+        Trojan Horse is a powerful tool that provides a set of features. This software ensures seamless performance and quick intigration, designed to cater to users needs while being user-friendly and efficient.
+      </p>
+      <p>
+        By using Trojan Horse, you agree to follow all guidelines and instructions outlined in the documentation. Always ensure that you have the latest version of the software for optimal functionality.
+      </p>
+      <p>
+        This tool is licensed software, and you must obtain a valid license to use it legally. Anyone offering Trojan Horse without a valid license is attempting to scam you.
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <div class="footer">
+    <p>By using Trojan Horse, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+    <p><strong>TrojanHorse.git</strong> is the only official domain for this software.</p>
+  </div>
+
+</body>
+</html>
