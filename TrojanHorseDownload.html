@@ -48,10 +48,33 @@
       color: red;
       display: none;
     }
+
+    /* --- Back Button (copied from login page) --- */
+    .back-button {
+      background-color: transparent;
+      color: #FF6F00;
+      font-size: 1.2em;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: bold;
+      transition: color 0.3s, transform 0.2s;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .back-button:hover {
+      color: #e65c00;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- Back button -->
+  <button class="back-button" onclick="window.location.href='index.html'">← Back</button>
 
   <div class="container">
     <h1>Download Trojan Horse</h1>
@@ -63,6 +86,11 @@
     <button class="btn" onclick="verify()">Download</button>
 
     <div id="error" class="error">Invalid email or license key.</div>
+
+    <!-- Optional: Back to home link under form -->
+    <a href="index.html" style="color:#FF6F00; text-decoration:underline; display:block; margin-top:20px;">
+      Back to Home
+    </a>
   </div>
 
   <script>
@@ -73,7 +101,6 @@
       let db = JSON.parse(localStorage.getItem("validLicenses")) || {};
 
       if (db[email] && db[email] === key) {
-        // valid
         const link = document.createElement("a");
         link.href = "https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/BeingWorkedOnSorry.zip?raw=true";
         link.download = "TrojanHorse.zip";
@@ -81,7 +108,6 @@
         return;
       }
 
-      // invalid
       document.getElementById("error").style.display = "block";
     }
   </script>
