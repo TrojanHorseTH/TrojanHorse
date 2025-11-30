@@ -3,17 +3,19 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Only POST requests allowed' });
   }
 
-  const { email, key } = req.body;
-  if (!email || !key) {
-    return res.status(400).json({ error: 'Missing email or key' });
+  const { email } = req.body;
+  
+  if (!email) {
+    return res.status(400).json({ error: 'Missing email' });
   }
 
-  const token = process.env.GITHUB_PAT; // Vercel will use this variable
-  const repo = 'TrojanHorseTH/TrojanHorse'; // Replace with your GitHub repo
-  const filePath = 'licenses.json'; // Path to the file you want to update
+  const newKey = generateKey();  // This generates the key
+
+  const token = process.env.GITHUB_PAT;  // GitHub token from Vercel
+  const repo = 'TrojanHorseTH/TrojanHorse';  
+  const filePath = 'licenses.json';  
 
   try {
-    // Fetch the current licenses.json from GitHub
     const fileRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -22,18 +24,13 @@ module.exports = async (req, res) => {
     });
 
     const fileData = await fileRes.json();
-
-    // Decode base64 content
     let content = fileData.content ? Buffer.from(fileData.content, 'base64').toString('utf8') : '{}';
     let json = JSON.parse(content);
 
-    // Add new license
-    json[email] = key;
+    json[email] = newKey;  // Add new key for email
 
-    // Encode new content to base64
     const newContent = Buffer.from(JSON.stringify(json, null, 2)).toString('base64');
 
-    // Commit the updated file back to GitHub
     const commitRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
       method: 'PUT',
       headers: {
@@ -41,7 +38,7 @@ module.exports = async (req, res) => {
         Accept: 'application/vnd.github+json',
       },
       body: JSON.stringify({
-        message: `Add license for ${email}`,
+        message: `Add new license key for ${email}`,
         content: newContent,
         sha: fileData.sha,
       }),
@@ -51,10 +48,14 @@ module.exports = async (req, res) => {
       return res.status(500).json({ error: 'Failed to update GitHub repository' });
     }
 
-    return res.json({ success: true });
+    return res.json({ success: true, email, newKey });
 
   } catch (error) {
     console.error('Error:', error);
     return res.status(500).json({ error: 'Something went wrong' });
   }
 };
+
+function generateKey() {
+  return Math.random().toString(36).substring(2, 15);
+}
