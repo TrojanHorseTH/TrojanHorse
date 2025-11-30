@@ -15,7 +15,6 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      position: relative;
     }
     .container {
       width: 90%;
@@ -23,7 +22,6 @@
     }
     .input-field {
       width: 100%; /* Ensures the inputs match the button width */
-      max-width: 100%; /* Ensures the inputs do not stretch more than the container */
       padding: 12px;
       background: #1f1f1f;
       border: 1px solid #444;
@@ -33,7 +31,6 @@
     }
     .btn {
       width: 100%; /* Button takes full width of container */
-      max-width: 100%; /* Keeps the button consistent with input fields */
       background: #FF6F00;
       border: none;
       color: white;
@@ -52,22 +49,18 @@
       display: none;
     }
 
-    /* --- Back Button (copied from login page) --- */
-    .back-button {
-      background-color: transparent;
+    /* --- Back Button under the form --- */
+    .back-home {
       color: #FF6F00;
-      font-size: 1.2em;
-      border: none;
-      cursor: pointer;
       text-decoration: underline;
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 1.2em;
       font-weight: bold;
-      transition: color 0.3s, transform 0.2s;
-      position: absolute;
-      top: 20px;
-      left: 20px;
+      transition: 0.3s;
     }
 
-    .back-button:hover {
+    .back-home:hover {
       color: #e65c00;
       transform: scale(1.05);
     }
@@ -75,9 +68,6 @@
 </head>
 
 <body>
-
-  <!-- Back button at the top-left -->
-  <button class="back-button" onclick="window.location.href='index.html'">← Back</button>
 
   <div class="container">
     <h1>Download Trojan Horse</h1>
@@ -90,10 +80,8 @@
 
     <div id="error" class="error">Invalid email or license key.</div>
 
-    <!-- Optional: Back to home link under form -->
-    <a href="index.html" style="color:#FF6F00; text-decoration:underline; display:block; margin-top:20px;">
-      Back to Home
-    </a>
+    <!-- Back to Home button below the form -->
+    <a href="index.html" class="back-home">← Back to Home</a>
   </div>
 
   <script>
