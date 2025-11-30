@@ -18,10 +18,10 @@
     }
     .container {
       width: 90%;
-      max-width: 500px; /* Container is 500px wide */
+      max-width: 500px;
     }
     .input-field {
-      width: 95%; /* Set width of inputs to 70% of container width */
+      width: 100%;
       padding: 12px;
       background: #1f1f1f;
       border: 1px solid #444;
@@ -30,8 +30,7 @@
       color: white;
     }
     .btn {
-      width: 100%; /* Button takes full width of container */
-      max-width: 500px; /* Limit button width to 500px */
+      width: 100%;
       background: #FF6F00;
       border: none;
       color: white;
@@ -49,22 +48,6 @@
       color: red;
       display: none;
     }
-
-    /* --- Back Button under the form --- */
-    .back-home {
-      color: #FF6F00;
-      text-decoration: underline;
-      display: inline-block;
-      margin-top: 20px;
-      font-size: 1.2em;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .back-home:hover {
-      color: #e65c00;
-      transform: scale(1.05);
-    }
   </style>
 </head>
 
@@ -74,38 +57,48 @@
     <h1>Download Trojan Horse</h1>
     <p>Enter your email and license key.</p>
 
-    <!-- Shorter input fields (70% of container width) -->
     <input id="email" class="input-field" type="email" placeholder="Email">
     <input id="license" class="input-field" type="text" placeholder="License Key">
 
     <button class="btn" onclick="verify()">Download</button>
 
     <div id="error" class="error">Invalid email or license key.</div>
-
-    <!-- Back to Home button below the form -->
-    <a href="index.html" class="back-home">← Back to Home</a>
   </div>
 
   <script>
-    function verify() {
-      const email = document.getElementById("email").value.trim();
-      const key = document.getElementById("license").value.trim();
+async function verify() {
+  const email = document.getElementById("email").value.trim();
+  const key = document.getElementById("license").value.trim();
 
-      let db = JSON.parse(localStorage.getItem("validLicenses")) || {};
+  const licenseURL = "https://raw.githubusercontent.com/TrojanHorseTH/TrojanHorse/main/licenses.json";
 
-      if (db[email] && db[email] === key) {
-        const link = document.createElement("a");
-        link.href = "https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/BeingWorkedOnSorry.zip?raw=true";
-        link.download = "TrojanHorse.zip";
-        link.click();
-        return;
-      }
+  try {
+    const response = await fetch(licenseURL);
 
-      document.getElementById("error").style.display = "block";
+    if (!response.ok) {
+      throw new Error("Failed to load licenses.json");
     }
-  </script>
 
+    const db = await response.json();
+
+    // Validate email + key pair
+    if (db[email] && db[email] === key) {
+      const link = document.createElement("a");
+      link.href = "https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/BeingWorkedOnSorry.zip?raw=true";
+      link.download = "TrojanHorse.zip";
+      link.click();
+      return;
+    }
+
+    document.getElementById("error").textContent = "Invalid email or license key.";
+    document.getElementById("error").style.display = "block";
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById("error").textContent = "Error verifying license.";
+    document.getElementById("error").style.display = "block";
+  }
+}
+</script>
 </body>
 </html>
-
-
