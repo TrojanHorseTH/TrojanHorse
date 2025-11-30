@@ -22,7 +22,8 @@
       max-width: 500px;
     }
     .input-field {
-      width: 100%;
+      width: 100%; /* Ensures the inputs match the button width */
+      max-width: 100%; /* Ensures the inputs do not stretch more than the container */
       padding: 12px;
       background: #1f1f1f;
       border: 1px solid #444;
@@ -31,7 +32,8 @@
       color: white;
     }
     .btn {
-      width: 100%;
+      width: 100%; /* Button takes full width of container */
+      max-width: 100%; /* Keeps the button consistent with input fields */
       background: #FF6F00;
       border: none;
       color: white;
