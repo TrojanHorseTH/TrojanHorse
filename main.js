@@ -1,5 +1,5 @@
 async function generateLicenseKey(email) {
-  const response = await fetch('https://<your-vercel-url>/api', {  // Replace <your-vercel-url>
+  const response = await fetch('https://<trojanhorse.vercel.app>/index.js', {  // Replace <your-vercel-url>
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
