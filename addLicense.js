@@ -1,22 +1,20 @@
-import fetch from "node-fetch";
-
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "POST only" });
+module.exports = async (req, res) => {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Only POST requests allowed' });
   }
 
   const { email, key } = req.body;
-
+  
   if (!email || !key) {
-    return res.status(400).json({ error: "Missing email or key" });
+    return res.status(400).json({ error: 'Missing email or key' });
   }
 
-  const token = process.env.GITHUB_PAT; // securely store the GitHub token
-  const repo = "TrojanHorseTH/TrojanHorse"; // your repo name
-  const filePath = "licenses.json"; // the file we are updating
+  const token = process.env.GITHUB_PAT; // Store the GitHub token in Vercel env variables
+  const repo = "TrojanHorseTH/TrojanHorse"; // Replace with your actual repo name
+  const filePath = "licenses.json"; // Path to the file you want to update on GitHub
 
   try {
-    // Fetch the current licenses.json from GitHub
+    // Fetch the existing licenses.json file from GitHub
     const fileRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -26,17 +24,17 @@ export default async function handler(req, res) {
 
     const fileData = await fileRes.json();
 
-    // Decode the content from base64
+    // Decode the base64 content of the existing file
     let content = fileData.content ? Buffer.from(fileData.content, "base64").toString("utf8") : "{}";
     let json = JSON.parse(content);
 
-    // Add the new license
+    // Add the new license to the JSON
     json[email] = key;
 
-    // Encode the new content back to base64
+    // Encode the updated content back to base64
     const newContent = Buffer.from(JSON.stringify(json, null, 2)).toString("base64");
 
-    // Commit the changes to GitHub
+    // Commit the updated file back to GitHub
     const commitRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
       method: "PUT",
       headers: {
@@ -51,13 +49,13 @@ export default async function handler(req, res) {
     });
 
     if (!commitRes.ok) {
-      return res.status(500).json({ error: "Failed to update GitHub repository" });
+      return res.status(500).json({ error: 'Failed to update GitHub repository' });
     }
 
     return res.json({ success: true });
 
   } catch (error) {
     console.error("Error updating license:", error);
-    return res.status(500).json({ error: "Something went wrong" });
+    return res.status(500).json({ error: 'Something went wrong while processing your request' });
   }
-}
+};
