@@ -4,19 +4,19 @@ module.exports = async (req, res) => {
   }
 
   const { email } = req.body;
-
+  
   if (!email) {
     return res.status(400).json({ error: 'Missing email' });
   }
 
-  // Generate a new key for the email
-  const newKey = generateKey();  
+  const newKey = generateKey();  // This generates the key
 
   const token = process.env.GITHUB_PAT;  // GitHub token from Vercel environment
   const repo = 'TrojanHorseTH/TrojanHorse';  // Replace with your GitHub repo
   const filePath = 'licenses.json';  // Path to the file you want to update
 
   try {
+    // Fetch the current licenses.json file from GitHub
     const fileRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -25,7 +25,6 @@ module.exports = async (req, res) => {
     });
 
     const fileData = await fileRes.json();
-
     let content = fileData.content ? Buffer.from(fileData.content, 'base64').toString('utf8') : '{}';
     let json = JSON.parse(content);
 
