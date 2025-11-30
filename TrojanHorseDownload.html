@@ -21,7 +21,7 @@
       max-width: 500px;
     }
     .input-field {
-      width: 100%;
+      width: 195%;
       padding: 12px;
       background: #1f1f1f;
       border: 1px solid #444;
@@ -48,6 +48,10 @@
       color: red;
       display: none;
     }
+    .text-center {
+      margin-top: 20px;
+      color: #FF6F00;
+    }
   </style>
 </head>
 
@@ -55,50 +59,65 @@
 
   <div class="container">
     <h1>Download Trojan Horse</h1>
-    <p>Enter your email and license key.</p>
+    <p>Enter your email and license key to access paid download.</p>
 
     <input id="email" class="input-field" type="email" placeholder="Email">
     <input id="license" class="input-field" type="text" placeholder="License Key">
 
-    <button class="btn" onclick="verify()">Download</button>
+    <button class="btn" onclick="verify()">Paid Download</button>
 
     <div id="error" class="error">Invalid email or license key.</div>
+
+    <p class="text-center">OR</p>
+
+    <!-- Free download button -->
+    <button class="btn" onclick="freeDownload()">Free Download</button>
   </div>
 
   <script>
-async function verify() {
-  const email = document.getElementById("email").value.trim();
-  const key = document.getElementById("license").value.trim();
+    async function verify() {
+      const email = document.getElementById("email").value.trim();
+      const key = document.getElementById("license").value.trim();
 
-  const licenseURL = "https://raw.githubusercontent.com/TrojanHorseTH/TrojanHorse/main/licenses.json";
+      const licenseURL = "https://raw.githubusercontent.com/TrojanHorseTH/TrojanHorse/main/licenses.json";
 
-  try {
-    const response = await fetch(licenseURL);
+      try {
+        const response = await fetch(licenseURL);
 
-    if (!response.ok) {
-      throw new Error("Failed to load licenses.json");
+        if (!response.ok) {
+          throw new Error("Failed to load licenses.json");
+        }
+
+        const db = await response.json();
+
+        // Validate email + key pair
+        if (db[email] && db[email] === key) {
+          // Paid download link
+          const link = document.createElement("a");
+          link.href = "https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/BeingWorkedOnSorry.zip?raw=true";
+          link.download = "TrojanHorse.zip";
+          link.click();
+          return;
+        }
+
+        document.getElementById("error").textContent = "Invalid email or license key.";
+        document.getElementById("error").style.display = "block";
+
+      } catch (err) {
+        console.error(err);
+        document.getElementById("error").textContent = "Error verifying license.";
+        document.getElementById("error").style.display = "block";
+      }
     }
 
-    const db = await response.json();
-
-    // Validate email + key pair
-    if (db[email] && db[email] === key) {
+    // Free download function (no key validation)
+    function freeDownload() {
       const link = document.createElement("a");
       link.href = "https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/BeingWorkedOnSorry.zip?raw=true";
-      link.download = "TrojanHorse.zip";
+      link.download = "TrojanHorse-Free.zip";
       link.click();
-      return;
     }
+  </script>
 
-    document.getElementById("error").textContent = "Invalid email or license key.";
-    document.getElementById("error").style.display = "block";
-
-  } catch (err) {
-    console.error(err);
-    document.getElementById("error").textContent = "Error verifying license.";
-    document.getElementById("error").style.display = "block";
-  }
-}
-</script>
 </body>
 </html>
