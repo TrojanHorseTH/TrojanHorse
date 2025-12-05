@@ -13,32 +13,17 @@
     color: #fff;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-  }
-
-  /* Container */
-  .container {
-    background: rgba(28,28,28,0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 50px 30px;
-    max-width: 900px;
-    width: 100%;
     text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    padding: 20px;
   }
 
   /* Logo */
   .logo img {
-    width: 180px;
-    margin-bottom: 20px;
+    width: 200px;
+    margin-bottom: 30px;
     transition: transform 0.3s ease;
   }
   .logo img:hover {
@@ -50,14 +35,14 @@
     position: absolute;
     top: 20px;
     right: 30px;
-    font-size: 1.1em;
+    font-size: 1.2em;
     color: #FF6F00;
     font-weight: bold;
   }
 
   /* Paragraph */
   p {
-    max-width: 650px;
+    max-width: 700px;
     margin: 15px auto;
     line-height: 1.5;
     color: #ccc;
@@ -67,7 +52,7 @@
 
   /* Buttons Container */
   .buttons {
-    margin: 25px 0;
+    margin: 30px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -107,7 +92,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 15px;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(255,255,255,0.05);
     border: 2px solid #555;
     transition: all 0.3s ease;
   }
@@ -127,6 +112,7 @@
     font-size: 0.85em;
     margin-top: 25px;
     color: #888;
+    max-width: 700px;
   }
   .footer a {
     color: #FF6F00;
@@ -158,22 +144,17 @@
 </head>
 <body>
 
-<div class="container">
-
-  <div class="header">
-    <div class="logo">
-      <a href="index.html">
-        <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
-      </a>
-    </div>
-
-    <div id="accountName" class="account-name"></div>
+  <div class="logo">
+    <a href="index.html">
+      <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
+    </a>
   </div>
+
+  <div id="accountName" class="account-name"></div>
 
   <p class="smaller-text">A license is required to use this software. Anyone telling you otherwise is trying to scam you.</p>
 
   <div class="buttons">
-
     <a href="TrojanHorseDownload.html" class="download">
       <img src="https://cdn4.iconfinder.com/data/icons/arrows-245/24/download_1-1024.png" alt="Download icon">
       Download
@@ -195,15 +176,12 @@
       <img src="https://cdn1.iconfinder.com/data/icons/shopping-and-e-commerce-147/90/Cart-1-1024.png" alt="Cart icon">
       Purchase
     </a>
-
   </div>
 
   <div class="footer">
     <p>By downloading, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
     <p><strong>trojanhorse.vercel.app</strong> is the only official domain for this software.</p>
   </div>
-
-</div>
 
 <script>
   const loggedInUser = localStorage.getItem("loggedInUser");
