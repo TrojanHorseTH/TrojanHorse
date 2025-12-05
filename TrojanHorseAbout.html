@@ -9,7 +9,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
 
-  /* Page background & base */
+  /* Base */
   body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #0d0d0d 0%, #141414 60%);
@@ -23,7 +23,7 @@
     -moz-osx-font-smoothing:grayscale;
   }
 
-  /* Global top controls */
+  /* Top controls */
   .back-button {
     position: fixed;
     top: 18px;
@@ -121,7 +121,7 @@
   .feature h4 { color: #fff; margin-bottom: 6px; font-size: 0.98rem; }
   .feature p { color: #bfbfbf; font-size: 0.9rem; line-height: 1.4; margin: 0; }
 
-  /* Right column (card) */
+  /* Right column (quick actions) */
   .right {
     background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
     border-radius: 12px;
@@ -166,7 +166,7 @@
   }
   .cta a.secondary:hover { background: rgba(255,111,0,0.04); }
 
-  /* Footer inside card */
+  /* Card footer */
   .card-footer {
     margin-top: 16px;
     color: #bdbdbd;
@@ -250,10 +250,10 @@
       </div>
     </section>
 
-    <!-- Right column -->
-    <aside class="right" aria-label="About actions">
-      <h3>Get started</h3>
-      <p>Want to download, purchase, or join the community? Use the quick links below to continue.</p>
+    <!-- Right column (quick actions only) -->
+    <aside class="right" aria-label="Quick actions">
+      <h3>Quick links</h3>
+      <p>Download the app, purchase a license, or join the community.</p>
 
       <div class="cta" role="navigation" aria-label="Quick links">
         <a class="primary" href="TrojanHorseDownload.html">Download</a>
