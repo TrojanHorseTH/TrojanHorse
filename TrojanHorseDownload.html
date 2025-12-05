@@ -1,232 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Trojan Horse</title>
+<title>Trojan Horse – Download</title>
 <style>
   /* Reset & Body */
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
   body {
     position: relative;
-    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0d0d0d;
     color: #fff;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
     padding: 20px;
   }
 
-  /* Back button (top-left) */
+  /* Top-left Back Button (global) */
   .back-button {
     position: absolute;
     top: 18px;
-    left: 20px;
+    left: 18px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     padding: 8px 12px;
-    background: rgba(255,255,255,0.04);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.03);
+    color: #FF6F00;
+    font-weight: 700;
     border-radius: 10px;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95em;
+    border: 1px solid rgba(255,255,255,0.04);
     transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    z-index: 50;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    z-index: 60;
   }
   .back-button:hover {
     background: rgba(255,111,0,0.12);
     transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(255,111,0,0.08);
+    box-shadow: 0 10px 24px rgba(255,111,0,0.08);
+  }
+
+  /* Container Card */
+  .container {
+    background: #1a1a1a;
+    border-radius: 15px;
+    padding: 40px 30px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    text-align: center;
   }
 
   /* Logo */
   .logo img {
-    width: 200px;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
-  }
-  .logo img:hover {
-    transform: scale(1.05);
+    width: 120px;
+    margin-bottom: 25px;
   }
 
-  /* Account Name */
-  .account-name {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 1.2em;
+  /* Headings */
+  h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
     color: #FF6F00;
-    font-weight: bold;
   }
 
-  /* Paragraphs */
   p {
-    max-width: 700px;
-    margin: 15px auto 5px auto;
-    line-height: 1.5;
     color: #ccc;
+    margin-bottom: 25px;
+    font-size: 0.95em;
+  }
+
+  /* Inputs */
+  .input-field {
+    width: 100%;
+    padding: 14px 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #1f1f1f;
+    color: #fff;
     font-size: 1em;
   }
-  .smaller-text {
-    font-size: 0.9em;
-    color: #aaa;
-    margin-bottom: 5px;
-  }
-
-  /* Buttons Container */
-  .buttons {
-    margin: 15px 0 30px 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-  }
-
-  /* Main Buttons */
-  .download, .purchase {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(135deg, #FF6F00, #FF8F00);
-    color: #fff;
-    padding: 14px 28px;
-    border-radius: 12px;
-    font-size: 1.1em;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 5px 15px rgba(255,111,0,0.4);
-    transition: all 0.3s ease;
-  }
-  .download:hover, .purchase:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255,111,0,0.6);
-  }
-  .download img, .purchase img {
-    width: 22px;
-    height: 22px;
-  }
-
-  /* Square Icon Buttons */
-  .buttons a.square {
-    width: 55px;
-    height: 55px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    background-color: rgba(255,255,255,0.05);
-    border: 2px solid #555;
-    transition: all 0.3s ease;
-  }
-  .buttons a.square:hover {
-    background-color: rgba(255,111,0,0.2);
-    transform: scale(1.1);
+  .input-field:focus {
     border-color: #FF6F00;
-  }
-  .buttons a.square img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255,111,0,0.06);
   }
 
-  /* Footer */
-  .footer {
-    font-size: 0.85em;
+  /* Buttons */
+  .btn {
+    width: 48%;
+    padding: 14px;
+    margin-top: 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: 0.3s;
+    color: #fff;
+  }
+
+  .btn-paid {
+    background: #FF6F00;
+  }
+  .btn-paid:hover { background: #e65c00; }
+
+  .btn-free {
+    background: #444;
+  }
+  .btn-free:hover { background: #666; }
+
+  /* Button container */
+  .button-container {
+    display: flex;
+    justify-content: space-between;
     margin-top: 20px;
-    color: #888;
-    max-width: 700px;
+    gap: 8px;
   }
-  .footer a {
+
+  /* Error message */
+  .error {
+    margin-top: 15px;
+    color: #ff4d4d;
+    font-weight: bold;
+    display: none;
+  }
+
+  /* Footer / OR text */
+  .text-center {
+    margin-top: 20px;
+    font-size: 0.95em;
     color: #FF6F00;
-    text-decoration: none;
-    transition: color 0.3s ease;
   }
-  .footer a:hover {
-    color: #ffa000;
-    text-decoration: underline;
+
+  /* Subtle animation */
+  .btn, .input-field {
+    transition: all 0.2s ease;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
   }
 
   /* Responsive */
   @media (max-width: 600px) {
-    .buttons {
+    .button-container {
       flex-direction: column;
-      gap: 15px;
     }
-    .download, .purchase {
+    .btn {
       width: 100%;
-      justify-content: center;
-    }
-    .account-name {
-      top: 15px;
-      right: 15px;
-      font-size: 1em;
     }
     .back-button {
       top: 12px;
       left: 12px;
       padding: 7px 10px;
-      font-size: 0.9em;
+      font-size: 0.95em;
+    }
+    .container {
+      padding: 28px 20px;
     }
   }
 </style>
 </head>
 <body>
 
-  <!-- Back button placed top-left for consistent navigation -->
+  <!-- Global Back Button (top-left) -->
   <a href="index.html" class="back-button" aria-label="Back to home">← Back</a>
 
-  <div class="logo">
-    <a href="index.html">
+  <div class="container">
+    <div class="logo" aria-hidden="true">
       <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
-    </a>
-  </div>
+    </div>
 
-  <div id="accountName" class="account-name"></div>
+    <h1>Download Trojan Horse</h1>
+    <p>Enter your username and license key to access the paid download.</p>
 
-  <p class="smaller-text">A license is required to use this software. Anyone telling you otherwise is trying to scam you.</p>
+    <label for="username" class="sr-only" style="position:absolute;left:-9999px;">Username</label>
+    <input id="username" class="input-field" type="text" placeholder="Username" autocomplete="username">
 
-  <div class="buttons">
-    <a href="TrojanHorseDownload.html" class="download">
-      <img src="https://cdn4.iconfinder.com/data/icons/arrows-245/24/download_1-1024.png" alt="Download icon">
-      Download
-    </a>
+    <label for="license" class="sr-only" style="position:absolute;left:-9999px;">License Key</label>
+    <input id="license" class="input-field" type="text" placeholder="License Key" autocomplete="off">
 
-    <a href="TrojanHorseAbout.html" class="square support" title="About">
-      <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/About.png?raw=true" alt="About icon">
-    </a>
+    <div class="button-container" role="group" aria-label="Download options">
+      <button class="btn btn-paid" onclick="verify()" aria-label="Paid download">Paid Download</button>
+      <button class="btn btn-free" onclick="freeDownload()" aria-label="Free download">Free Download</button>
+    </div>
 
-    <a href="https://discord.gg/QYq6mknYXX" class="square discord" target="_blank" rel="noopener noreferrer" title="Discord">
-      <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/Discord-Symbol-White.png?raw=true" alt="Discord icon">
-    </a>
+    <div id="error" class="error" role="alert" aria-live="assertive">Invalid username or license key.</div>
 
-    <a href="TrojanHorseLogIn-SignUp.html" class="square faq" title="Login / Sign Up">
-      <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/CheckMarkPerson-removebg-preview.png?raw=true" alt="Login icon">
-    </a>
-
-    <a href="TrojanHorsePurchase.html" class="purchase">
-      <img src="https://cdn1.iconfinder.com/data/icons/shopping-and-e-commerce-147/90/Cart-1-1024.png" alt="Cart icon">
-      Purchase
-    </a>
-  </div>
-
-  <div class="footer">
-    <p>By downloading, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
-    <p><strong>trojanhorse.vercel.app</strong> is the only official domain for this software.</p>
+    <p class="text-center">OR</p>
   </div>
 
 <script>
-  const loggedInUser = localStorage.getItem("loggedInUser");
-  document.getElementById("accountName").textContent = loggedInUser || "Guest";
+  // LICENSE DATABASE
+  const licenses = {
+    "testuser": "ABC123-DEF456-GHI789",
+    "yuh!": "O9KJZ-K3FYP-UJVK7-T51NU-V1H0V"
+  };
+
+  function verify() {
+    const username = document.getElementById("username").value.trim();
+    const key = document.getElementById("license").value.trim();
+    const errorEl = document.getElementById("error");
+    errorEl.style.display = "none";
+
+    if (!username || !key) {
+      errorEl.textContent = "Please enter username and license key.";
+      errorEl.style.display = "block";
+      return;
+    }
+
+    if (licenses[username] && licenses[username] === key) {
+      // Trigger download
+      const link = document.createElement("a");
+      link.href = "https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/BeingWorkedOnSorry.zip?raw=true";
+      link.download = "TrojanHorse.zip";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      return;
+    }
+
+    errorEl.textContent = "Invalid username or license key.";
+    errorEl.style.display = "block";
+  }
+
+  function freeDownload() {
+    const link = document.createElement("a");
+    link.href = "https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/BeingWorkedOnSorry.zip?raw=true";
+    link.download = "TrojanHorse-Free.zip";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
 </script>
 
 </body>
