@@ -9,15 +9,16 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
 
-  /* Base */
+  /* Base layout: center the card vertically and horizontally */
   body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #0d0d0d 0%, #141414 60%);
     color: #e9e9e9;
     min-height: 100vh;
     display: flex;
-    justify-content: center; /* center vertically */
-    align-items: center;     /* center horizontally */
+    flex-direction: column;    /* stack card and footer */
+    justify-content: center;   /* center vertically */
+    align-items: center;       /* center horizontally */
     padding: 28px;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
