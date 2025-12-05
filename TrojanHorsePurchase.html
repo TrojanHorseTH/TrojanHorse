@@ -1,222 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Purchase – Trojan Horse</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Trojan Horse – Purchase</title>
+<style>
+  /* Reset */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    position: relative;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+  }
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: white;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      min-height: 100vh;
-    }
+  /* Top-left back button (global) */
+  .back-button {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.03);
+    color: #FF6F00;
+    font-weight: 700;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    z-index: 60;
+  }
+  .back-button:hover {
+    background: rgba(255,111,0,0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(255,111,0,0.08);
+  }
 
-    .container {
-      max-width: 700px;
-      padding: 20px;
-    }
+  /* Account name top-right */
+  .account-name {
+    position: absolute;
+    top: 18px;
+    right: 28px;
+    font-size: 1.05rem;
+    color: #FF6F00;
+    font-weight: 700;
+    z-index: 60;
+  }
 
-    h1 {
-      color: #FF6F00;
-    }
+  /* Page wrapper / card */
+  .card {
+    width: 100%;
+    max-width: 920px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 24px;
+    align-items: start;
+  }
 
-    p {
-      color: #ccc;
-      line-height: 1.5;
-    }
+  /* Left column (info + options) */
+  .left {
+    padding: 8px 6px;
+  }
 
-    .product-box {
-      background-color: #1f1f1f;
-      padding: 25px;
-      border-radius: 10px;
-      margin-top: 25px;
-      border: 1px solid #333;
-    }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .logo img {
+    width: 84px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  }
+  .brand {
+    text-align: left;
+  }
+  .brand h2 {
+    color: #FF6F00;
+    font-size: 1.25rem;
+    margin-bottom: 2px;
+  }
+  .brand p {
+    color: #cfcfcf;
+    font-size: 0.92rem;
+    margin-top: 0;
+  }
 
-    .price {
-      font-size: 2rem;
-      margin: 10px 0;
-      color: #FF6F00;
-    }
+  .desc {
+    margin: 14px 0 18px 0;
+    color: #d0d0d0;
+    line-height: 1.45;
+    font-size: 0.98rem;
+  }
 
-    .purchase-btn {
-      background-color: #FF6F00;
-      color: white;
-      padding: 14px 30px;
-      border-radius: 8px;
-      font-size: 1.2em;
-      border: none;
-      cursor: pointer;
-      transition: 0.2s;
-      margin-top: 20px;
-    }
+  /* Pricing cards */
+  .plans {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .plan {
+    flex: 1 1 160px;
+    min-width: 160px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid rgba(255,255,255,0.03);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    cursor: pointer;
+  }
+  .plan:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+    border-color: rgba(255,111,0,0.12);
+  }
+  .plan.selected {
+    border-color: rgba(255,111,0,0.28);
+    box-shadow: 0 18px 40px rgba(255,111,0,0.06);
+    transform: translateY(-6px);
+  }
+  .plan .title {
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .plan .price {
+    color: #FF6F00;
+    font-weight: 800;
+    font-size: 1.15rem;
+  }
+  .plan .meta {
+    color: #bdbdbd;
+    font-size: 0.85rem;
+    margin-top: 8px;
+  }
 
-    .purchase-btn:hover {
-      background-color: #e65c00;
-      transform: scale(1.05);
-    }
+  /* Right column (checkout card) */
+  .checkout {
+    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+  .checkout h3 {
+    color: #FF6F00;
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+  }
+  .checkout p {
+    color: #cfcfcf;
+    font-size: 0.92rem;
+    margin-bottom: 12px;
+  }
 
-    .disabled {
-      background-color: #555 !important;
-      cursor: not-allowed !important;
-      transform: none !important;
-    }
+  /* Form fields */
+  .field {
+    margin-bottom: 12px;
+  }
+  .field label {
+    display: block;
+    font-size: 0.82rem;
+    color: #cfcfcf;
+    margin-bottom: 6px;
+  }
+  .input, .select {
+    width: 100%;
+    padding: 12px 12px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background: #141414;
+    color: #fff;
+    font-size: 0.95rem;
+  }
+  .input:focus, .select:focus {
+    outline: none;
+    border-color: #FF6F00;
+    box-shadow: 0 0 0 6px rgba(255,111,0,0.04);
+  }
 
-    .back-btn {
-      color: #FF6F00;
-      display: inline-block;
-      margin-top: 25px;
-    }
+  /* Gradient purchase button (like main page) */
+  .purchase-btn {
+    width: 100%;
+    padding: 14px 16px;
+    margin-top: 8px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #FF6F00 0%, #FF8F00 60%);
+    box-shadow: 0 10px 30px rgba(255,111,0,0.28), inset 0 -4px 10px rgba(0,0,0,0.12);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+  }
+  .purchase-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(255,111,0,0.32), inset 0 -4px 10px rgba(0,0,0,0.12);
+  }
 
-    .redownload-btn {
-      background-color: #555;
-      color: white;
-      padding: 14px 30px;
-      border-radius: 8px;
-      font-size: 1.2em;
-      border: none;
-      cursor: pointer;
-      margin-top: 20px;
-    }
+  /* Secondary small button */
+  .secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    color: #e6e6e6;
+    border: 1px solid rgba(255,255,255,0.04);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+  .secondary:hover {
+    background: rgba(255,111,0,0.06);
+  }
 
-    .redownload-btn:hover {
-      background-color: #888;
-    }
-  </style>
+  /* Small helper text */
+  .helper {
+    margin-top: 10px;
+    color: #bdbdbd;
+    font-size: 0.85rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 980px) {
+    .card { grid-template-columns: 1fr; max-width: 720px; padding: 20px; }
+    .checkout { margin-top: 12px; }
+  }
+  @media (max-width: 520px) {
+    .logo img { width: 64px; }
+    .brand h2 { font-size: 1rem; }
+    .plan { min-width: 140px; padding: 12px; }
+  }
+</style>
 </head>
-
 <body>
 
-  <div class="container">
+  <a href="index.html" class="back-button" aria-label="Back to home">← Back</a>
+  <div id="accountName" class="account-name"></div>
 
-    <h1>Purchase License</h1>
-    <p>A license is required to use Trojan Horse. You must be logged in to purchase.</p>
+  <main class="card" role="main" aria-labelledby="purchase-heading">
+    <!-- Left: product info & plans -->
+    <section class="left" aria-labelledby="purchase-heading">
+      <div class="logo" aria-hidden="true">
+        <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse logo">
+        <div class="brand">
+          <h2 id="purchase-heading">Trojan Horse License</h2>
+          <p>Secure, supported, and regularly updated.</p>
+        </div>
+      </div>
 
-    <div class="product-box">
+      <p class="desc">
+        Choose the plan that fits you. All purchases include automatic updates and access to our Discord support server. Licenses are tied to your username — keep it safe.
+      </p>
 
-      <h2>Trojan Horse – Free License</h2>
-      <p>✔ Some access<br>
-         ✔ Updates included<br>
-         ✔ Discord support<br>
-         ✔ One device activation</p>
+      <div class="plans" role="list">
+        <div class="plan selected" data-plan="personal" role="listitem" tabindex="0">
+          <div class="title">Personal</div>
+          <div class="price">£9.99</div>
+          <div class="meta">Single user; 1 year updates</div>
+        </div>
 
-      <div class="price">Free</div>
+        <div class="plan" data-plan="pro" role="listitem" tabindex="0">
+          <div class="title">Pro</div>
+          <div class="price">£24.99</div>
+          <div class="meta">Up to 3 users; priority support</div>
+        </div>
 
-      <!-- Purchase button will be shown if the user hasn't already purchased -->
-      <button id="purchaseBtn" class="purchase-btn" onclick="completePurchase()">Purchase Now</button>
+        <div class="plan" data-plan="enterprise" role="listitem" tabindex="0">
+          <div class="title">Enterprise</div>
+          <div class="price">Contact</div>
+          <div class="meta">Custom licensing & deployment</div>
+        </div>
+      </div>
 
-      <!-- Redownload button will be shown if the user has already purchased and downloaded the key -->
-      <button id="redownloadBtn" class="redownload-btn" onclick="redownloadKey()" style="display:none;">Redownload Key</button>
+      <div class="helper">Need a different option? Use the contact link in the footer on the main page.</div>
+    </section>
 
-    </div>
+    <!-- Right: checkout -->
+    <aside class="checkout" aria-label="Checkout">
+      <h3>Complete purchase</h3>
+      <p>Fill in your details and click Purchase to receive your license key instantly.</p>
 
-    <a href="index.html" class="back-btn">← Back to Home</a>
+      <div class="field">
+        <label for="buyer-username">Username</label>
+        <input id="buyer-username" class="input" type="text" placeholder="Your username" autocomplete="username">
+      </div>
 
-  </div>
+      <div class="field">
+        <label for="buyer-email">Email</label>
+        <input id="buyer-email" class="input" type="email" placeholder="you@example.com" autocomplete="email">
+      </div>
 
-  <script>
+      <div class="field">
+        <label for="plan-select">Selected plan</label>
+        <select id="plan-select" class="select" aria-label="Selected plan">
+          <option value="personal">Personal — £9.99</option>
+          <option value="pro">Pro — £24.99</option>
+          <option value="enterprise">Enterprise — Contact</option>
+        </select>
+      </div>
 
-    // Generate random key
-    function generateKey() {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      let key = "";
-      for (let i = 0; i < 25; i++) {
-        key += chars.charAt(Math.floor(Math.random() * chars.length));
-        if ((i + 1) % 5 === 0 && i !== 24) key += "-";
-      }
-      return key;
+      <div class="field">
+        <label for="coupon">Coupon code (optional)</label>
+        <input id="coupon" class="input" type="text" placeholder="Enter coupon code">
+      </div>
+
+      <button id="purchaseBtn" class="purchase-btn" onclick="purchase()">Purchase</button>
+
+      <div id="checkoutMsg" class="helper" aria-live="polite" style="display:none;"></div>
+
+      <a href="TrojanHorseAbout.html" class="secondary" style="margin-left:0; margin-right:6px;">
+        About & Support
+      </a>
+    </aside>
+  </main>
+
+<script>
+  // Small UI script to mirror style/behavior from main/download pages
+  const accountNameEl = document.getElementById('accountName');
+  accountNameEl.textContent = localStorage.getItem('loggedInUser') || 'Guest';
+
+  // Plan selection logic
+  const planEls = document.querySelectorAll('.plan');
+  const planSelect = document.getElementById('plan-select');
+
+  planEls.forEach(el => {
+    el.addEventListener('click', () => selectPlan(el));
+    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') selectPlan(el); });
+  });
+
+  function selectPlan(el) {
+    planEls.forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+    const plan = el.getAttribute('data-plan');
+    if (plan === 'personal') planSelect.value = 'personal';
+    if (plan === 'pro') planSelect.value = 'pro';
+    if (plan === 'enterprise') planSelect.value = 'enterprise';
+  }
+
+  // Sync select -> highlight
+  planSelect.addEventListener('change', () => {
+    const val = planSelect.value;
+    planEls.forEach(p => p.classList.toggle('selected', p.getAttribute('data-plan') === val));
+  });
+
+  // Mock purchase flow (client-side only)
+  function purchase() {
+    const username = document.getElementById('buyer-username').value.trim();
+    const email = document.getElementById('buyer-email').value.trim();
+    const plan = document.getElementById('plan-select').value;
+    const msgEl = document.getElementById('checkoutMsg');
+
+    msgEl.style.display = 'none';
+    if (!username || !email) {
+      msgEl.style.display = 'block';
+      msgEl.textContent = 'Please enter both username and email to continue.';
+      return;
     }
 
-    function downloadKeyFile(email, key) {
-      const content = `Your Trojan Horse License\n\nEmail: ${email}\nLicense Key: ${key}\n\nKeep this key safe.`;
+    // Simulate license generation and download link (client-side demo)
+    const licenseKey = generateLicenseKey(username, plan);
+    // Show success message and provide a simple copy button
+    msgEl.style.display = 'block';
+    msgEl.innerHTML = 'Purchase complete — your license key: ' +
+      '<strong style="color:#fff; margin-left:6px;">' + licenseKey + '</strong>' +
+      ' <button id="copyBtn" style="margin-left:10px;padding:6px 8px;border-radius:8px;border:none;background:rgba(255,255,255,0.04);color:#fff;cursor:pointer;">Copy</button>';
 
-      const blob = new Blob([content], { type: "text/plain" });
-      const url = URL.createObjectURL(blob);
+    document.getElementById('copyBtn').addEventListener('click', () => {
+      navigator.clipboard?.writeText(licenseKey).then(() => {
+        document.getElementById('copyBtn').textContent = 'Copied';
+        setTimeout(() => document.getElementById('copyBtn').textContent = 'Copy', 1500);
+      }).catch(() => {
+        alert('Copy failed — please select and copy manually.');
+      });
+    });
 
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "TrojanHorseLicense.txt";
-      link.click();
+    // Optionally store license locally for demo purposes
+    try {
+      const stored = JSON.parse(localStorage.getItem('licenses') || '{}');
+      stored[username] = licenseKey;
+      localStorage.setItem('licenses', JSON.stringify(stored));
+    } catch (e) { /* ignore storage errors */ }
+  }
 
-      URL.revokeObjectURL(url);
-    }
-
-    function completePurchase() {
-
-      const user = localStorage.getItem("loggedInUser");
-
-      // Must be logged in
-      if (!user) {
-        alert("You must be logged in to purchase.");
-        window.location.href = "TrojanHorseLogIn-SignUp.html";
-        return;
-      }
-
-      // Prevent purchasing twice
-      if (localStorage.getItem("hasPurchased") === "true") {
-        alert("You already purchased this license. Check your downloaded .txt file.");
-        showRedownloadButton();
-        return;
-      }
-
-      // Generate & save key
-      const key = generateKey();
-      localStorage.setItem("licenseKey", key);
-      localStorage.setItem("licenseOwner", user);
-      localStorage.setItem("hasPurchased", "true");
-
-      // Download .txt file
-      downloadKeyFile(user, key);
-
-      // Show redownload option
-      showRedownloadButton();
-
-      // Change button
-      const btn = document.getElementById("purchaseBtn");
-      btn.textContent = "Purchased!";
-      btn.classList.add("disabled");
-
-      // Redirect to success page
-      setTimeout(() => {
-        window.location.href = "TrojanHorsePurchaseSucsess.html";
-      }, 2000);
-    }
-
-    function redownloadKey() {
-      const user = localStorage.getItem("loggedInUser");
-      const key = localStorage.getItem("licenseKey");
-
-      if (!user || !key) {
-        alert("No key found for redownload.");
-        return;
-      }
-
-      downloadKeyFile(user, key);
-    }
-
-    // Show the redownload button if the key exists
-    function showRedownloadButton() {
-      document.getElementById("purchaseBtn").style.display = "none";
-      document.getElementById("redownloadBtn").style.display = "inline-block";
-    }
-
-    // Check if the user has already purchased, and if so, show the redownload button
-    window.onload = function() {
-      const hasPurchased = localStorage.getItem("hasPurchased");
-      if (hasPurchased === "true") {
-        showRedownloadButton();
-      }
-    }
-
-  </script>
+  function generateLicenseKey(username, plan) {
+    // Simple deterministic-ish key for demo only
+    const base = (username + '|' + plan + '|' + Date.now()).split('').map(c => c.charCodeAt(0).toString(36)).join('').toUpperCase();
+    return base.slice(0,6) + '-' + base.slice(6,12) + '-' + base.slice(12,18);
+  }
+</script>
 
 </body>
 </html>
