@@ -8,8 +8,8 @@
   /* Reset & Body */
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #0d0d0d;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
     color: #fff;
     min-height: 100vh;
     display: flex;
@@ -20,77 +20,98 @@
 
   /* Container Card */
   .container {
-    background: #1a1a1a;
-    border-radius: 15px;
-    padding: 40px 30px;
+    background: #1c1c1c;
+    border-radius: 20px;
+    padding: 50px 30px;
     max-width: 500px;
     width: 100%;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
   }
 
   /* Logo */
   .logo img {
     width: 120px;
     margin-bottom: 25px;
+    transition: transform 0.3s ease;
+  }
+  .logo img:hover {
+    transform: scale(1.05);
   }
 
   /* Headings */
   h1 {
-    font-size: 1.8em;
-    margin-bottom: 10px;
+    font-size: 2em;
+    margin-bottom: 15px;
     color: #FF6F00;
+    letter-spacing: 1px;
   }
 
   p {
     color: #ccc;
-    margin-bottom: 25px;
-    font-size: 0.95em;
+    margin-bottom: 30px;
+    font-size: 1em;
   }
 
   /* Inputs */
   .input-field {
     width: 100%;
-    padding: 14px 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #444;
-    background: #1f1f1f;
+    padding: 15px 18px;
+    margin: 12px 0;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background: #222;
     color: #fff;
     font-size: 1em;
+    transition: all 0.3s ease;
   }
   .input-field:focus {
     border-color: #FF6F00;
+    box-shadow: 0 0 8px #FF6F00;
     outline: none;
   }
 
   /* Buttons */
   .btn {
-    padding: 14px 20px;
-    border-radius: 8px;
+    padding: 14px 25px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
     font-size: 1em;
-    transition: 0.3s;
+    font-weight: 600;
+    transition: all 0.3s ease;
     color: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
 
   .btn-paid {
-    background: #FF6F00;
+    background: linear-gradient(135deg, #FF6F00, #FF8F00);
   }
-  .btn-paid:hover { background: #e65c00; }
+  .btn-paid:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255,111,0,0.6);
+  }
 
   .btn-free {
-    background: #444;
+    background: linear-gradient(135deg, #555, #777);
   }
-  .btn-free:hover { background: #666; }
+  .btn-free:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(119,119,119,0.6);
+  }
 
   /* Button container */
   .button-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px; /* space between buttons and OR */
+    gap: 20px; /* space between buttons and OR */
+    flex-wrap: wrap;
     margin-top: 20px;
   }
 
@@ -98,22 +119,29 @@
     color: #FF6F00;
     font-weight: bold;
     font-size: 1em;
+    white-space: nowrap;
   }
 
   /* Error message */
   .error {
-    margin-top: 15px;
+    margin-top: 20px;
     color: #ff4d4d;
     font-weight: bold;
     display: none;
   }
 
-  /* Subtle animation */
-  .btn, .input-field {
-    transition: all 0.2s ease;
-  }
-  .btn:hover {
-    transform: translateY(-2px);
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .button-container {
+      flex-direction: column;
+      gap: 15px;
+    }
+    .or-text {
+      display: none; /* hide OR on very small screens to simplify layout */
+    }
+    .btn {
+      width: 100%;
+    }
   }
 </style>
 </head>
@@ -140,7 +168,6 @@
 </div>
 
 <script>
-  // LICENSE DATABASE
   const licenses = {
     "testuser": "ABC123-DEF456-GHI789",
     "yuh!": "O9KJZ-K3FYP-UJVK7-T51NU-V1H0V"
