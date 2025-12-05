@@ -16,8 +16,8 @@
     color: #e9e9e9;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: center; /* center vertically */
+    align-items: center;     /* center horizontally */
     padding: 28px;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
@@ -53,11 +53,10 @@
     font-size: 0.98rem;
   }
 
-  /* Card wrapper */
+  /* Card wrapper (centered) */
   .card {
     width: 100%;
     max-width: 980px;
-    margin-top: 48px;
     background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
     border-radius: 14px;
     padding: 28px;
@@ -173,7 +172,7 @@
     font-size: 0.9rem;
   }
 
-  /* Page footer */
+  /* Page footer (placed directly under the centered card) */
   .site-footer {
     width: 100%;
     max-width: 980px;
@@ -207,7 +206,7 @@
   <a class="back-button" href="index.html" aria-label="Back to home">← Back</a>
   <div id="accountName" class="account-name" aria-hidden="false">Guest</div>
 
-  <!-- Main card -->
+  <!-- Main card (centered by body flexbox) -->
   <main class="card" role="main" aria-labelledby="about-heading">
     <!-- Left column -->
     <section class="left" aria-labelledby="about-heading">
@@ -250,7 +249,7 @@
       </div>
     </section>
 
-    <!-- Right column (quick actions only) -->
+    <!-- Right column (quick actions) -->
     <aside class="right" aria-label="Quick actions">
       <h3>Quick links</h3>
       <p>Download the app, purchase a license, or join the community.</p>
@@ -268,7 +267,7 @@
     </aside>
   </main>
 
-  <!-- Page footer -->
+  <!-- Footer text placed under the centered card -->
   <footer class="site-footer" role="contentinfo">
     <p>By using Trojan Horse, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
     <p style="margin-top:6px;"><strong>trojanhorse.vercel.app</strong> is the only official domain for this software.</p>
