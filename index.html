@@ -23,7 +23,7 @@
   /* Logo */
   .logo img {
     width: 200px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     transition: transform 0.3s ease;
   }
   .logo img:hover {
@@ -40,19 +40,23 @@
     font-weight: bold;
   }
 
-  /* Paragraph */
+  /* Paragraphs */
   p {
     max-width: 700px;
-    margin: 15px auto;
+    margin: 15px auto 5px auto; /* tightened bottom margin */
     line-height: 1.5;
     color: #ccc;
     font-size: 1em;
   }
-  .smaller-text { font-size: 0.9em; color: #aaa; }
+  .smaller-text {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-bottom: 5px; /* closer to buttons */
+  }
 
   /* Buttons Container */
   .buttons {
-    margin: 30px 0;
+    margin: 15px 0 30px 0; /* reduced top margin */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -110,7 +114,7 @@
   /* Footer */
   .footer {
     font-size: 0.85em;
-    margin-top: 25px;
+    margin-top: 20px;
     color: #888;
     max-width: 700px;
   }
@@ -185,12 +189,7 @@
 
 <script>
   const loggedInUser = localStorage.getItem("loggedInUser");
-
-  if (loggedInUser) {
-    document.getElementById("accountName").textContent = loggedInUser;
-  } else {
-    document.getElementById("accountName").textContent = "Guest";
-  }
+  document.getElementById("accountName").textContent = loggedInUser || "Guest";
 </script>
 
 </body>
