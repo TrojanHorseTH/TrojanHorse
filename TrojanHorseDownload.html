@@ -97,23 +97,41 @@
     width: 48%;
     padding: 14px;
     margin-top: 15px;
-    border-radius: 8px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
     font-size: 1em;
-    transition: 0.3s;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 600;
+    text-decoration: none;
   }
 
+  /* Paid button: vibrant gradient like main page */
   .btn-paid {
-    background: #FF6F00;
+    background: linear-gradient(135deg, #FF6F00 0%, #FF8F00 60%);
+    box-shadow: 0 8px 20px rgba(255,111,0,0.28), inset 0 -3px 8px rgba(0,0,0,0.12);
   }
-  .btn-paid:hover { background: #e65c00; }
+  .btn-paid:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(255,111,0,0.32), inset 0 -3px 8px rgba(0,0,0,0.12);
+  }
 
+  /* Free button: subtle gradient with warm accent */
   .btn-free {
-    background: #444;
+    background: linear-gradient(135deg, rgba(255,111,0,0.06) 0%, rgba(255,111,0,0.02) 100%);
+    border: 1px solid rgba(255,255,255,0.04);
+    color: #e6e6e6;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.6);
   }
-  .btn-free:hover { background: #666; }
+  .btn-free:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.6), 0 6px 18px rgba(255,111,0,0.06);
+  }
 
   /* Button container */
   .button-container {
@@ -141,9 +159,6 @@
   /* Subtle animation */
   .btn, .input-field {
     transition: all 0.2s ease;
-  }
-  .btn:hover {
-    transform: translateY(-2px);
   }
 
   /* Responsive */
