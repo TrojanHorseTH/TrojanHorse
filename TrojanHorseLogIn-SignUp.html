@@ -1,228 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Trojan Horse – Login / Sign Up</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Trojan Horse – Login / Sign Up</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: white;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 
-    .container {
-      max-width: 400px;
-      width: 90%;
-      padding: 20px;
-    }
+  .container {
+    max-width: 400px;
+    width: 90%;
+    padding: 20px;
+  }
 
-    .logo img {
-      width: 150px;
-      margin-bottom: 20px;
-    }
+  .logo img {
+    width: 150px;
+    margin-bottom: 20px;
+  }
 
-    .tabs {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 20px;
-    }
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
 
-    .tab {
-      padding: 10px 20px;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: 0.3s;
-    }
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+  }
 
-    .tab.active {
-      border-bottom: 2px solid #FF6F00;
-      color: #FF6F00;
-    }
+  .tab.active {
+    border-bottom: 2px solid #FF6F00;
+    color: #FF6F00;
+  }
 
-    form {
-      display: none;
-      flex-direction: column;
-      gap: 12px;
-    }
+  form {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+  }
 
-    form.active {
-      display: flex;
-    }
+  form.active {
+    display: flex;
+  }
 
-    input {
-      padding: 12px;
-      border-radius: 6px;
-      border: 1px solid #444;
-      background-color: #1c1c1c;
-      color: white;
-      outline: none;
-    }
+  input {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #1c1c1c;
+    color: white;
+    outline: none;
+  }
 
-    input:focus {
-      border-color: #FF6F00;
-    }
+  input:focus {
+    border-color: #FF6F00;
+  }
 
-    .submit-btn {
-      background-color: #FF6F00;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 6px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-    }
+  .submit-btn {
+    background-color: #FF6F00;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
 
-    .submit-btn:hover {
-      background-color: #e65c00;
-      transform: scale(1.03);
-    }
+  .submit-btn:hover {
+    background-color: #e65c00;
+    transform: scale(1.03);
+  }
 
-    .back-home {
-      margin-top: 20px;
-      color: #FF6F00;
-      text-decoration: none;
-      display: inline-block;
-      transition: 0.3s;
-    }
+  .back-home {
+    margin-top: 20px;
+    color: #FF6F00;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+  }
 
-    .back-home:hover {
-      text-decoration: underline;
-    }
+  .back-home:hover {
+    text-decoration: underline;
+  }
 
-    /* Back Button Styling */
-    .back-button {
-      background-color: transparent;
-      color: #FF6F00;
-      font-size: 1.2em;
-      border: none;
-      cursor: pointer;
-      text-decoration: underline;
-      font-weight: bold;
-      transition: color 0.3s, transform 0.2s;
-    }
-
-    .back-button:hover {
-      color: #e65c00;
-      transform: scale(1.05);
-    }
-
-    /* Account info on the top-right */
-    .account-info {
-      color: #FF6F00;
-      font-size: 1.1em;
-      position: absolute;
-      top: 10px;
-      right: 20px;
-    }
-  </style>
+  .account-info {
+    color: #FF6F00;
+    font-size: 1.1em;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+  }
+</style>
 </head>
 <body>
 
-  <!-- Header with Account Info -->
-  <div class="header">
-    <div class="logo">
-      <a href="index.html">
-        <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
-      </a>
-    </div>
-    <div class="account-info" id="accountInfo">Loading...</div>
+<!-- Header with Account Info -->
+<div class="header">
+  <div class="logo">
+    <a href="index.html">
+      <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
+    </a>
   </div>
-  
-  <!-- Main Content -->
-  <div class="container">
-    <div class="tabs">
-      <div class="tab active" onclick="switchTab('signin')">Sign In</div>
-      <div class="tab" onclick="switchTab('signup')">Sign Up</div>
-    </div>
+  <div class="account-info" id="accountInfo">Loading...</div>
+</div>
 
-    <!-- SIGN IN FORM -->
-    <form id="signin" class="active">
-      <input type="email" placeholder="Email" id="signin-email" required>
-      <input type="password" placeholder="Password" id="signin-password" required>
-      <button type="submit" class="submit-btn">Sign In</button>
-    </form>
-
-    <!-- SIGN UP FORM -->
-    <form id="signup">
-      <input type="text" placeholder="Username" id="signup-username" required>
-      <input type="email" placeholder="Email" id="signup-email" required>
-      <input type="password" placeholder="Password" id="signup-password" required>
-      <button type="submit" class="submit-btn">Sign Up</button>
-    </form>
-
-    <!-- Redirect to home -->
-    <a href="index.html" class="back-home">Back to Home</a>
+<!-- Main Content -->
+<div class="container">
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('signin')">Sign In</div>
+    <div class="tab" onclick="switchTab('signup')">Sign Up</div>
   </div>
 
-  <script>
-    // Switch between Sign In and Sign Up tabs
-    function switchTab(tab) {
-      document.getElementById('signin').classList.remove('active');
-      document.getElementById('signup').classList.remove('active');
-      document.querySelector('.tab.active').classList.remove('active');
-      
-      if (tab === 'signin') {
-        document.getElementById('signin').classList.add('active');
-        document.querySelector('.tab:nth-child(1)').classList.add('active');
-      } else {
-        document.getElementById('signup').classList.add('active');
-        document.querySelector('.tab:nth-child(2)').classList.add('active');
-      }
-    }
+  <!-- SIGN IN FORM -->
+  <form id="signin" class="active">
+    <input type="text" placeholder="Username" id="signin-username" required>
+    <input type="email" placeholder="Email" id="signin-email" required>
+    <input type="password" placeholder="Password" id="signin-password" required>
+    <button type="submit" class="submit-btn">Sign In</button>
+  </form>
 
-    // Handle sign-in form submission
-    document.getElementById('signin').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const email = document.getElementById('signin-email').value;
-      const password = document.getElementById('signin-password').value;
-      
-      // Check if the credentials match saved data (simulate login)
-      const storedEmail = localStorage.getItem('userEmail');
-      const storedPassword = localStorage.getItem('userPassword');
+  <!-- SIGN UP FORM -->
+  <form id="signup">
+    <input type="text" placeholder="Username" id="signup-username" required>
+    <input type="email" placeholder="Email" id="signup-email" required>
+    <input type="password" placeholder="Password" id="signup-password" required>
+    <button type="submit" class="submit-btn">Sign Up</button>
+  </form>
 
-      if (email === storedEmail && password === storedPassword) {
-        alert('Logged in successfully!');
-        localStorage.setItem('loggedInUser', email); // Store user login status
-        window.location.href = 'index.html'; // Redirect to the homepage
-      } else {
-        alert('Invalid credentials, please try again.');
-      }
-    });
+  <!-- Redirect to home -->
+  <a href="index.html" class="back-home">Back to Home</a>
+</div>
 
-    // Handle sign-up form submission
-    document.getElementById('signup').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const username = document.getElementById('signup-username').value;
-      const email = document.getElementById('signup-email').value;
-      const password = document.getElementById('signup-password').value;
-
-      // Save the new user to localStorage (simulating sign-up)
-      localStorage.setItem('userEmail', email);
-      localStorage.setItem('userPassword', password);
-      localStorage.setItem('username', username);
-
-      alert('Sign-up successful! You can now sign in.');
-      switchTab('signin'); // Switch to the sign-in form after sign-up
-    });
-
-    // Display logged-in user info
-    const loggedInUser = localStorage.getItem('loggedInUser');
-    if (loggedInUser) {
-      document.getElementById('accountInfo').textContent = `Logged in as: ${loggedInUser}`;
+<script>
+  // Switch between Sign In and Sign Up tabs
+  function switchTab(tab) {
+    document.getElementById('signin').classList.remove('active');
+    document.getElementById('signup').classList.remove('active');
+    document.querySelector('.tab.active').classList.remove('active');
+    
+    if (tab === 'signin') {
+      document.getElementById('signin').classList.add('active');
+      document.querySelector('.tab:nth-child(1)').classList.add('active');
     } else {
-      document.getElementById('accountInfo').textContent = 'Not logged in';
+      document.getElementById('signup').classList.add('active');
+      document.querySelector('.tab:nth-child(2)').classList.add('active');
     }
-  </script>
+  }
+
+  // Handle sign-in form submission
+  document.getElementById('signin').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const username = document.getElementById('signin-username').value.trim();
+    const email = document.getElementById('signin-email').value.trim();
+    const password = document.getElementById('signin-password').value.trim();
+
+    const storedUsername = localStorage.getItem('username');
+    const storedEmail = localStorage.getItem('userEmail');
+    const storedPassword = localStorage.getItem('userPassword');
+
+    if (username === storedUsername && email === storedEmail && password === storedPassword) {
+      alert('Logged in successfully!');
+      localStorage.setItem('loggedInUser', username);
+      document.getElementById('accountInfo').textContent = `Logged in as: ${username}`;
+      window.location.href = 'index.html';
+    } else {
+      alert('Invalid username, email, or password.');
+    }
+  });
+
+  // Handle sign-up form submission
+  document.getElementById('signup').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const username = document.getElementById('signup-username').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value.trim();
+
+    // Save the new user to localStorage
+    localStorage.setItem('username', username);
+    localStorage.setItem('userEmail', email);
+    localStorage.setItem('userPassword', password);
+
+    alert('Sign-up successful! You can now sign in.');
+    switchTab('signin'); // Switch to Sign In
+  });
+
+  // Display logged-in user info
+  const loggedInUser = localStorage.getItem('loggedInUser');
+  if (loggedInUser) {
+    document.getElementById('accountInfo').textContent = `Logged in as: ${loggedInUser}`;
+  } else {
+    document.getElementById('accountInfo').textContent = 'Not logged in';
+  }
+</script>
 
 </body>
 </html>
