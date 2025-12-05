@@ -66,9 +66,7 @@
 
   /* Buttons */
   .btn {
-    width: 48%;
-    padding: 14px;
-    margin-top: 15px;
+    padding: 14px 20px;
     border-radius: 8px;
     border: none;
     cursor: pointer;
@@ -90,8 +88,16 @@
   /* Button container */
   .button-container {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* space between buttons and OR */
     margin-top: 20px;
+  }
+
+  .or-text {
+    color: #FF6F00;
+    font-weight: bold;
+    font-size: 1em;
   }
 
   /* Error message */
@@ -100,13 +106,6 @@
     color: #ff4d4d;
     font-weight: bold;
     display: none;
-  }
-
-  /* Footer / OR text */
-  .text-center {
-    margin-top: 20px;
-    font-size: 0.95em;
-    color: #FF6F00;
   }
 
   /* Subtle animation */
@@ -133,12 +132,11 @@
 
   <div class="button-container">
     <button class="btn btn-paid" onclick="verify()">Paid Download</button>
+    <span class="or-text">OR</span>
     <button class="btn btn-free" onclick="freeDownload()">Free Download</button>
   </div>
 
   <div id="error" class="error">Invalid username or license key.</div>
-
-  <p class="text-center">OR</p>
 </div>
 
 <script>
