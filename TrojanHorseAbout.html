@@ -1,158 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About - Trojan Horse</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About - Trojan Horse</title>
+<style>
+  /* Reset */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
 
-  <style>
-    /* Body Setup: Flexbox to center content */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: white;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+  /* Page background & base */
+  body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0d0d0d 0%, #141414 60%);
+    color: #e9e9e9;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 28px;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
 
-    /* Main container for the content */
-    .container {
-      text-align: center;
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
-    }
+  /* Global top controls */
+  .back-button {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 60;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.03);
+    color: #FF6F00;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: transform .16s ease, background .16s ease, box-shadow .16s ease;
+  }
+  .back-button:hover { transform: translateY(-2px); background: rgba(255,111,0,0.08); box-shadow: 0 10px 24px rgba(255,111,0,0.06); }
 
-    /* Header section (for back button and logo) */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      position: absolute;
-      top: 10px;
-      width: 100%;
-      padding: 0 20px;
-    }
+  .account-name {
+    position: fixed;
+    top: 18px;
+    right: 22px;
+    z-index: 60;
+    color: #FF6F00;
+    font-weight: 700;
+    font-size: 0.98rem;
+  }
 
-    /* Back Button Styling */
-    .back-button {
-      font-size: 1.2em;
-      background-color: transparent;
-      color: #FF6F00;
-      border: none;
-      cursor: pointer;
-      text-decoration: underline;
-      font-weight: bold;
-    }
+  /* Card wrapper */
+  .card {
+    width: 100%;
+    max-width: 980px;
+    margin-top: 48px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.6);
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 22px;
+    align-items: start;
+  }
 
-    /* Logo Styling in the top right */
-    .logo img {
-      width: 100px;
-      height: auto;
-    }
+  /* Left column */
+  .left {
+    padding: 6px 4px;
+  }
 
-    /* About Page Content */
-    .about-content {
-      color: #aaa;
-      max-width: 700px;
-      margin: 50px auto;
-      font-size: 1.1em;
-    }
+  .brand {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .brand img {
+    width: 84px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.6);
+  }
+  .brand h1 {
+    font-size: 1.35rem;
+    color: #FF6F00;
+    margin-bottom: 4px;
+  }
+  .brand p {
+    color: #cfcfcf;
+    font-size: 0.95rem;
+    margin: 0;
+  }
 
-    .about-content h2 {
-      font-size: 2em;
-      color: #FF6F00;
-    }
+  .lead {
+    margin: 14px 0 18px 0;
+    color: #d0d0d0;
+    line-height: 1.5;
+    font-size: 1rem;
+  }
 
-    .about-content p {
-      margin: 20px 0;
-      line-height: 1.6;
-    }
+  /* Feature grid */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .feature {
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.03);
+    transition: transform .14s ease, box-shadow .14s ease;
+  }
+  .feature:hover { transform: translateY(-6px); box-shadow: 0 14px 36px rgba(0,0,0,0.6); border-color: rgba(255,111,0,0.08); }
+  .feature h4 { color: #fff; margin-bottom: 6px; font-size: 0.98rem; }
+  .feature p { color: #bfbfbf; font-size: 0.9rem; line-height: 1.4; margin: 0; }
 
-    /* Footer Styling */
-    .footer {
-      font-size: 0.8em;
-      margin-top: 30px;
-      padding: 0;
-      color: gray;
-      text-align: center;
-    }
+  /* Right column (card) */
+  .right {
+    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  }
+  .right h3 { color: #FF6F00; margin-bottom: 8px; font-size: 1.05rem; }
+  .right p { color: #d0d0d0; font-size: 0.95rem; margin-bottom: 12px; }
 
-    .footer p {
-      margin-top: 5px;
-    }
+  .cta {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .cta a.primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    background: linear-gradient(135deg, #FF6F00 0%, #FF8F00 60%);
+    box-shadow: 0 10px 30px rgba(255,111,0,0.22), inset 0 -4px 10px rgba(0,0,0,0.12);
+    transition: transform .16s ease, box-shadow .16s ease;
+  }
+  .cta a.primary:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(255,111,0,0.28); }
 
-    .footer a {
-      color: #FF6F00;
-      text-decoration: none;
-    }
+  .cta a.secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: #e6e6e6;
+    text-decoration: none;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .cta a.secondary:hover { background: rgba(255,111,0,0.04); }
 
-    .footer a:hover {
-      text-decoration: underline;
-    }
+  /* Footer inside card */
+  .card-footer {
+    margin-top: 16px;
+    color: #bdbdbd;
+    font-size: 0.9rem;
+  }
 
-    /* Account Info in the top right */
-    .account-info {
-      color: #FF6F00;
-      font-size: 1.1em;
-      position: absolute;
-      top: 10px;
-      right: 20px;
-    }
+  /* Page footer */
+  .site-footer {
+    width: 100%;
+    max-width: 980px;
+    margin-top: 18px;
+    color: #9a9a9a;
+    font-size: 0.88rem;
+    text-align: center;
+  }
+  .site-footer a { color: #FF6F00; text-decoration: none; }
+  .site-footer a:hover { text-decoration: underline; }
 
-  </style>
+  /* Accessibility helpers */
+  .sr-only { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+
+  /* Responsive */
+  @media (max-width: 980px) {
+    .card { grid-template-columns: 1fr; padding: 20px; }
+    .right { order: 2; }
+    .left { order: 1; }
+  }
+  @media (max-width: 560px) {
+    .features { grid-template-columns: 1fr; }
+    .brand img { width: 64px; }
+    .brand h1 { font-size: 1.05rem; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- Header: Back button, Logo, and Account Info -->
-  <div class="header">
-    <button class="back-button" onclick="window.history.back();">Back</button>
-    <div class="logo">
-      <a href="index.html">
-        <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
-      </a>
-    </div>
-    <div class="account-info" id="accountInfo">Loading...</div>
-  </div>
+  <!-- Top controls -->
+  <a class="back-button" href="index.html" aria-label="Back to home">← Back</a>
+  <div id="accountName" class="account-name" aria-hidden="false">Guest</div>
 
-  <!-- Main content section -->
-  <div class="container">
-    <div class="about-content">
-      <h2>About Trojan Horse</h2>
-      <p>
-        Trojan Horse is a powerful tool that provides a set of features. This software ensures seamless performance and quick integration, designed to cater to users' needs while being user-friendly and efficient.
-      </p>
-      <p>
-        By using Trojan Horse, you agree to follow all guidelines and instructions outlined in the documentation. Always ensure that you have the latest version of the software for optimal functionality.
-      </p>
-      <p>
-        This tool is licensed software, and you must obtain a valid license to use it legally. Anyone offering Trojan Horse without a valid license is attempting to scam you.
-      </p>
-    </div>
-  </div>
+  <!-- Main card -->
+  <main class="card" role="main" aria-labelledby="about-heading">
+    <!-- Left column -->
+    <section class="left" aria-labelledby="about-heading">
+      <div class="brand">
+        <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse logo">
+        <div>
+          <h1 id="about-heading">About Trojan Horse</h1>
+          <p>Secure, supported, and designed for power users.</p>
+        </div>
+      </div>
 
-  <!-- Footer Section -->
-  <div class="footer">
+      <p class="lead">
+        Trojan Horse is a lightweight, reliable tool built to streamline workflows and integrate cleanly with existing systems. It focuses on performance, clarity, and user control while providing regular updates and active support.
+      </p>
+
+      <div class="features" aria-label="Key features">
+        <div class="feature">
+          <h4>Fast & Reliable</h4>
+          <p>Optimised for speed with minimal overhead so you can get work done without delays.</p>
+        </div>
+
+        <div class="feature">
+          <h4>Regular Updates</h4>
+          <p>Frequent releases keep the software secure and compatible with modern environments.</p>
+        </div>
+
+        <div class="feature">
+          <h4>Support & Community</h4>
+          <p>Access our Discord server for help, troubleshooting, and community-driven tips.</p>
+        </div>
+
+        <div class="feature">
+          <h4>Licensed Use</h4>
+          <p>Trojan Horse is licensed software — always obtain a valid license to use it legally.</p>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <p style="margin:0;">If you need more details about features, licensing, or deployment, check the support links or contact the team.</p>
+      </div>
+    </section>
+
+    <!-- Right column -->
+    <aside class="right" aria-label="About actions">
+      <h3>Get started</h3>
+      <p>Want to download, purchase, or join the community? Use the quick links below to continue.</p>
+
+      <div class="cta" role="navigation" aria-label="Quick links">
+        <a class="primary" href="TrojanHorseDownload.html">Download</a>
+        <a class="secondary" href="TrojanHorsePurchase.html">Purchase</a>
+        <a class="secondary" href="https://discord.gg/QYq6mknYXX" target="_blank" rel="noopener noreferrer">Discord</a>
+      </div>
+
+      <div style="margin-top:14px;">
+        <p style="margin:0;color:#cfcfcf;">License reminder</p>
+        <p style="margin:6px 0 0 0;color:#bdbdbd;font-size:0.92rem;">Anyone offering Trojan Horse without a valid license is attempting to scam you. Only download from official sources.</p>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Page footer -->
+  <footer class="site-footer" role="contentinfo">
     <p>By using Trojan Horse, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
-    <p><strong>TrojanHorse.git</strong> is the only official domain for this software.</p>
-  </div>
+    <p style="margin-top:6px;"><strong>trojanhorse.vercel.app</strong> is the only official domain for this software.</p>
+  </footer>
 
-  <script>
-    function updateAccountInfo() {
-      const user = localStorage.getItem("loggedInUser");
-      const accountInfoElement = document.getElementById("accountInfo");
-
-      if (user) {
-        accountInfoElement.textContent = `Logged in as: ${user}`;
-      } else {
-        accountInfoElement.textContent = "Not logged in";
-      }
-    }
-
-    window.onload = updateAccountInfo;
-  </script>
+<script>
+  // Populate account name from localStorage
+  (function () {
+    const el = document.getElementById('accountName');
+    const user = localStorage.getItem('loggedInUser');
+    el.textContent = user ? `Logged in as: ${user}` : 'Not logged in';
+  })();
+</script>
 
 </body>
 </html>
