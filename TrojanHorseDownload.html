@@ -3,58 +3,164 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Download – Trojan Horse</title>
+<title>Trojan Horse – Download</title>
 <style>
-  body { font-family: Arial, sans-serif; background:#121212; color:white; text-align:center; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
-  .container { width:90%; max-width:500px; }
-  .input-field { width:90%; padding:12px; background:#1f1f1f; border:1px solid #444; border-radius:6px; margin:10px 0; color:white; }
-  .btn { width:48%; background:#FF6F00; border:none; color:white; padding:14px; border-radius:6px; cursor:pointer; font-size:1.1em; margin-top:10px; }
-  .btn:hover { background:#e65c00; }
-  .error { margin-top:10px; color:red; display:none; }
-  .button-container { display:flex; justify-content:space-between; margin-top:20px; }
-  .text-center { margin-top:20px; color:#FF6F00; font-size:1.2em; }
+  /* Reset & Body */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0d0d0d;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  /* Container Card */
+  .container {
+    background: #1a1a1a;
+    border-radius: 15px;
+    padding: 40px 30px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    text-align: center;
+  }
+
+  /* Logo */
+  .logo img {
+    width: 120px;
+    margin-bottom: 25px;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #FF6F00;
+  }
+
+  p {
+    color: #ccc;
+    margin-bottom: 25px;
+    font-size: 0.95em;
+  }
+
+  /* Inputs */
+  .input-field {
+    width: 100%;
+    padding: 14px 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #1f1f1f;
+    color: #fff;
+    font-size: 1em;
+  }
+  .input-field:focus {
+    border-color: #FF6F00;
+    outline: none;
+  }
+
+  /* Buttons */
+  .btn {
+    width: 48%;
+    padding: 14px;
+    margin-top: 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: 0.3s;
+    color: #fff;
+  }
+
+  .btn-paid {
+    background: #FF6F00;
+  }
+  .btn-paid:hover { background: #e65c00; }
+
+  .btn-free {
+    background: #444;
+  }
+  .btn-free:hover { background: #666; }
+
+  /* Button container */
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  /* Error message */
+  .error {
+    margin-top: 15px;
+    color: #ff4d4d;
+    font-weight: bold;
+    display: none;
+  }
+
+  /* Footer / OR text */
+  .text-center {
+    margin-top: 20px;
+    font-size: 0.95em;
+    color: #FF6F00;
+  }
+
+  /* Subtle animation */
+  .btn, .input-field {
+    transition: all 0.2s ease;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
 </style>
 </head>
-
 <body>
-<div class="container">
-  <h1>Download Trojan Horse</h1>
-  <p>Enter your email and license key to access paid download.</p>
 
-  <input id="email" class="input-field" type="email" placeholder="Email">
+<div class="container">
+  <div class="logo">
+    <img src="https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/TrojanHorse.png?raw=true" alt="Trojan Horse Logo">
+  </div>
+
+  <h1>Download Trojan Horse</h1>
+  <p>Enter your username and license key to access the paid download.</p>
+
+  <input id="username" class="input-field" type="text" placeholder="Username">
   <input id="license" class="input-field" type="text" placeholder="License Key">
 
   <div class="button-container">
-    <button class="btn" onclick="verify()">Paid Download</button>
-    <button class="btn" onclick="freeDownload()">Free Download</button>
+    <button class="btn btn-paid" onclick="verify()">Paid Download</button>
+    <button class="btn btn-free" onclick="freeDownload()">Free Download</button>
   </div>
 
-  <div id="error" class="error"></div>
+  <div id="error" class="error">Invalid username or license key.</div>
+
   <p class="text-center">OR</p>
 </div>
 
 <script>
-  // LICENSE DATABASE (all-in-one)
+  // LICENSE DATABASE
   const licenses = {
-    "yuh!@aron.wrk": "O9KJZ-K3FYP-UJVK7-T51NU-V1H0V",
-    "test@test.com": "ABCDEFG123456"
+    "testuser": "ABC123-DEF456-GHI789",
+    "yuh!": "O9KJZ-K3FYP-UJVK7-T51NU-V1H0V"
   };
 
   function verify() {
-    const emailInput = document.getElementById("email").value.trim().toLowerCase();
-    const keyInput = document.getElementById("license").value.trim();
-
+    const username = document.getElementById("username").value.trim();
+    const key = document.getElementById("license").value.trim();
     const errorEl = document.getElementById("error");
     errorEl.style.display = "none";
 
-    if (!emailInput || !keyInput) {
-      errorEl.textContent = "Please enter email and license key.";
+    if (!username || !key) {
+      errorEl.textContent = "Please enter username and license key.";
       errorEl.style.display = "block";
       return;
     }
 
-    if (licenses[emailInput] && licenses[emailInput] === keyInput) {
-      // VALID → trigger download
+    if (licenses[username] && licenses[username] === key) {
       const link = document.createElement("a");
       link.href = "https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/BeingWorkedOnSorry.zip?raw=true";
       link.download = "TrojanHorse.zip";
@@ -62,8 +168,7 @@
       return;
     }
 
-    // INVALID
-    errorEl.textContent = "Invalid email or license key.";
+    errorEl.textContent = "Invalid username or license key.";
     errorEl.style.display = "block";
   }
 
@@ -74,6 +179,6 @@
     link.click();
   }
 </script>
+
 </body>
 </html>
-
