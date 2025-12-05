@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Download – Trojan Horse</title>
 <style>
-  body { font-family: Arial; background:#121212; color:white; text-align:center; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
+  body { font-family: Arial, sans-serif; background:#121212; color:white; text-align:center; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
   .container { width:90%; max-width:500px; }
   .input-field { width:90%; padding:12px; background:#1f1f1f; border:1px solid #444; border-radius:6px; margin:10px 0; color:white; }
   .btn { width:48%; background:#FF6F00; border:none; color:white; padding:14px; border-radius:6px; cursor:pointer; font-size:1.1em; margin-top:10px; }
@@ -29,24 +29,32 @@
     <button class="btn" onclick="freeDownload()">Free Download</button>
   </div>
 
-  <div id="error" class="error">Invalid email or license key.</div>
+  <div id="error" class="error"></div>
   <p class="text-center">OR</p>
 </div>
 
 <script>
-  // Hard-coded license database (all-in-one)
+  // LICENSE DATABASE (all-in-one)
   const licenses = {
     "user@example.com": "PAIDKEY123",
-    "test@test.com": "ABCDEFG123456",
-    // Add more keys here
+    "test@test.com": "ABCDEFG123456"
   };
 
   function verify() {
-    const email = document.getElementById("email").value.trim();
-    const key = document.getElementById("license").value.trim();
+    const emailInput = document.getElementById("email").value.trim().toLowerCase();
+    const keyInput = document.getElementById("license").value.trim();
 
-    if (licenses[email] && licenses[email] === key) {
-      // Valid key → download
+    const errorEl = document.getElementById("error");
+    errorEl.style.display = "none";
+
+    if (!emailInput || !keyInput) {
+      errorEl.textContent = "Please enter email and license key.";
+      errorEl.style.display = "block";
+      return;
+    }
+
+    if (licenses[emailInput] && licenses[emailInput] === keyInput) {
+      // VALID → trigger download
       const link = document.createElement("a");
       link.href = "https://github.com/TrojanHorseTH/ImageDumpDiscordBot/blob/main/BeingWorkedOnSorry.zip?raw=true";
       link.download = "TrojanHorse.zip";
@@ -54,10 +62,9 @@
       return;
     }
 
-    // Invalid
-    const err = document.getElementById("error");
-    err.textContent = "Invalid email or license key.";
-    err.style.display = "block";
+    // INVALID
+    errorEl.textContent = "Invalid email or license key.";
+    errorEl.style.display = "block";
   }
 
   function freeDownload() {
